@@ -453,6 +453,14 @@ ul {
   animation: float 6s ease-in-out infinite;
 }
 
+img.iphone-frame {
+  height: auto;
+  border: none;
+  background-color: transparent;
+  box-shadow: none;
+  border-radius: 0;
+}
+
 @keyframes float {
   0%, 100% { transform: translateY(0) rotateY(-5deg) rotateX(5deg); }
   50% { transform: translateY(-15px) rotateY(5deg) rotateX(-5deg); }
@@ -867,30 +875,53 @@ ul {
   transition: stroke-dashoffset 0.1s ease;
 }
 
-.timeline-item {
+/*.timeline-item {
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 80px;
   margin-bottom: clamp(60px, 8vw, 100px);
   position: relative;
   z-index: 2;
+}*/
+
+.timeline-item {
+  display: grid;
+  grid-template-columns: 1fr 80px 1fr;
+  align-items: center;
+  margin-bottom: clamp(60px, 8vw, 100px);
+  position: relative;
+  z-index: 2;
 }
 
-.timeline-item:nth-child(even) {
+/*.timeline-item:nth-child(even) {
   direction: rtl;
 }
 
 .timeline-item:nth-child(even) .timeline-content {
   direction: ltr;
-}
+}*/
 
-.timeline-content-wrapper {
+/*.timeline-content-wrapper {
   display: flex;
   justify-content: flex-end;
 }
 
 .timeline-item:nth-child(even) .timeline-content-wrapper {
   justify-content: flex-start;
+}*/
+
+.timeline-content-wrapper {
+    width: 100%;
+}
+
+/* Odd items -> Right */
+.timeline-item:nth-child(odd) .timeline-content-wrapper {
+    grid-column: 3;
+}
+
+/* Even items -> Left */
+.timeline-item:nth-child(even) .timeline-content-wrapper {
+    grid-column: 1;
 }
 
 .timeline-content {
@@ -910,9 +941,9 @@ ul {
   box-shadow: 0 15px 30px var(--card-shadow-hover);
 }
 
-.timeline-dot {
+/*.timeline-dot {
   position: absolute;
-  left: 50%;
+  left: calc(50% - 10px);
   top: 36px;
   transform: translateX(-50%);
   width: 20px;
@@ -922,6 +953,20 @@ ul {
   border: 4px solid var(--border);
   z-index: 3;
   transition: var(--transition-fast);
+}*/
+.timeline-dot {
+    position: absolute;
+    left: 50%;
+    top: 36px;
+    width: 20px;
+    height: 20px;
+    /* Center the dot exactly over the line */
+    transform: translate(-50%, -50%);
+    border-radius: 50%;
+    background: var(--bg-primary);
+    border: 4px solid var(--border);
+    z-index: 10;
+    transition: var(--transition-fast);
 }
 
 .timeline-dot.active {
@@ -1490,12 +1535,25 @@ ul {
 /* ==========================================================================
    15. BLOG PREVIEW SECTION
    ========================================================================== */
-.blog-grid {
+/*.blog-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 32px;
-}
+}*/
 
+.blog-grid {
+  display: flex;
+  overflow-x: auto;
+  gap: 32px;
+  scroll-snap-type: x mandatory;
+  
+  padding-top: 20px; 
+  padding-bottom: 20px;
+  margin-top: -20px;   
+
+  -ms-overflow-style: none;  
+  scrollbar-width: none;  
+}
 .blog-card {
   display: flex;
   flex-direction: column;
@@ -1864,7 +1922,7 @@ body.cursor-hover .custom-cursor-follower {
     padding-left: 32px;
   }
   .timeline-dot {
-    left: 10px;
+    left: calc(50% - 10px);
     transform: none;
   }
   .timeline-line-svg {
