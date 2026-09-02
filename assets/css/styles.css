@@ -1559,6 +1559,18 @@ img.iphone-frame {
   flex-direction: column;
   overflow: hidden;
   height: 100%;
+  /* Flex item configuration */
+  scroll-snap-align: start;
+  box-sizing: border-box;
+
+  /* Mobile: 1 card visible */
+  flex: 0 0 calc(100% - 64px);
+}
+/* Desktop (Breakpoints can be adjusted, e.g., 768px or 1024px) */
+@media (min-width: 768px) {
+  .blog-card {
+    flex: 0 0 calc((100% - 64px) / 3);
+  }
 }
 
 .blog-thumbnail-wrapper {
